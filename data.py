@@ -4,6 +4,10 @@ import os
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.decomposition import PCA
 
+#自己添加内容
+from PIL import Image
+import imageio
+
 def get_mstar_data(stage, width=128, height=128, crop_size=128, aug=False):
     data_dir = "MSTAR-10/train/" if stage == "train" else "MSTAR-10/test/" if stage == "test" else None
     print("------ " + stage + " ------")
@@ -17,7 +21,11 @@ def get_mstar_data(stage, width=128, height=128, crop_size=128, aug=False):
         print(sub_dir[i], len(img_idx))
         y += [i] * len(img_idx)
         for j in range(len(img_idx)):
-            img = im.imresize(im.imread((tmp_dir + img_idx[j])), [height, width])
+            #img = im.imresize(im.imread((tmp_dir + img_idx[j])), [height, width])
+            ###上一句修改如下
+            myimg = imageio.imread((tmp_dir + img_idx[j]))
+            img=np.array(Image.fromarray(myimg).resize([height, width]) )
+            ###
             img = img[(height - crop_size) // 2 : height - (height - crop_size) // 2, \
                   (width - crop_size) // 2: width - (width - crop_size) // 2]
             # img = img[16:112, 16:112]   # crop
