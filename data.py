@@ -1,10 +1,10 @@
 import numpy as np
-import scipy.misc as im
+import scipy.misc as im #使用 imresize imread 函数，已经不能使用，故修改如下
 import os
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.decomposition import PCA
 
-#自己添加内容
+#替换im功能
 from PIL import Image
 import imageio
 
