@@ -5,11 +5,26 @@ import matplotlib.pyplot as plt
 import matplotlib.cm as cm
 
 print("loading ... ")
-X_train, y_train = data.get_mstar_data("train", 128, 128, 96)
+X_train, y_train = data.get_mstar_data("train", 128, 128, 96)  # X_train未改格式:001.txt
 X_test, y_test = data.get_mstar_data("test", 128, 128, 96)
-X_train = np.reshape(X_train, [X_train.shape[0], X_train.shape[1] * X_train.shape[2]])
+print(X_train.shape, y_train.shape, X_test.shape, y_test.shape)  # 后加
+#plt.imshow(X_train[0],cmap=plt.cm.gray)
+#plt.show()
+X_train = np.reshape(X_train, [X_train.shape[0], X_train.shape[1] * X_train.shape[2]])  # 修改格式后X_train:002.txt,其实把96*96的图片展成一行
 X_test = np.reshape(X_test, [X_test.shape[0], X_test.shape[1] * X_test.shape[2]])
 print(X_train.shape, y_train.shape, X_test.shape, y_test.shape)
+
+
+file3 = open(r'E:\python\Code\mstar_with_machine_learning\\' + '002.txt', 'w', encoding='UTF-8')
+for i in range(len(X_train)):
+    file3.write(str(X_train[i]) + '\n')
+
+'''
+print(X_train[:64,:64])
+print(X_train[:64,:64].shape)  # 取行和列有问题
+plt.imshow(X_train[:64,:64],cmap=plt.cm.gray)
+plt.show()
+'''
 
 # print("shuffling ... ")
 X_train, y_train = data.data_shuffle(X_train, y_train)
